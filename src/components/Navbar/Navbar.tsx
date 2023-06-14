@@ -1,15 +1,27 @@
 import './navbar.css';
-import { FC, useState } from 'react';
+import { FC, useState, useRef } from 'react';
 import { FaBars, FaMusic } from 'react-icons/fa';
 
 import { links, socialLinks } from './links';
 
 const Navbar: FC = () => {
-	const [showLinks, setShowLinks] = useState(true);
+	const [showLinks, setShowLinks] = useState(false);
+
+  const linksContainerRef  = useRef<HTMLDivElement>(null);
+  const linksRef = useRef<HTMLUListElement>(null);
 
 	const toggleLinks = () => {
+
 		setShowLinks(!showLinks);
 	};
+
+  interface LinkStyles {
+    [Key: string]: string;
+  }
+
+  const linkStyles: LinkStyles = {
+    heigh: showLinks? `${linksRef.current?.getBoundingClientRect().height}px` : '0px'
+  };
 
 	return (
 		<nav>
@@ -22,9 +34,13 @@ const Navbar: FC = () => {
 						<FaBars />
 					</button>
 				</div>
-				{showLinks && (
-					<div className='links-container'>
-						<ul className='links'>
+				
+					<div 
+            className='links-container' 
+            ref={linksContainerRef} 
+            style={linkStyles}
+          >
+						<ul className='links' ref={linksRef}>
 							{links.map((link) => {
 								const { id, url, text } = link;
 								return (
@@ -35,7 +51,17 @@ const Navbar: FC = () => {
 							})}
 						</ul>
 					</div>
-				)}
+				{/* social links */}
+        <ul className='social-icons'>
+          {socialLinks.map((socialIcon) => {
+            const { id, url, icon } = socialIcon;
+            return (
+              <li key={id}>
+                <a href={url}>{icon}</a>
+              </li>
+            );
+          })}
+        </ul>
 			</div>
 		</nav>
 	);

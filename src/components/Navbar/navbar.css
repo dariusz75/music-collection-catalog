@@ -1,3 +1,6 @@
+
+@import "../../index.css";
+
 nav {
 	background: var(--white);
 	box-shadow: var(--shadow-1);
@@ -9,6 +12,7 @@ nav {
 	justify-content: space-between;
 	padding: 1rem;
 }
+
 .nav-toggle {
 	font-size: 1.5rem;
 	color: var(--primary-500);
@@ -17,13 +21,16 @@ nav {
 	transition: var(--transition);
 	cursor: pointer;
 }
+
 .nav-toggle:hover {
 	color: var(--primary-700);
 	transform: rotate(90deg);
 }
+
 .logo {
 	height: 40px;
 }
+
 .links a {
 	color: var(--grey-700);
 	font-size: 1rem;
@@ -54,9 +61,11 @@ nav {
 	.nav-toggle {
 		display: none;
 	}
+
 	.nav-header {
 		padding: 0;
 	}
+
 	.nav-center {
 		max-width: 1170px;
 		margin: 0 auto;
@@ -65,29 +74,37 @@ nav {
 		justify-content: space-between;
 		padding: 1rem;
 	}
+
 	.links-container {
 		height: auto !important;
 	}
+
 	.links {
 		display: flex;
 		gap: 0.5rem;
 	}
+
 	.links a {
 		padding: 0;
 	}
+
 	.links a:hover {
 		padding: 0;
 		background: transparent;
 	}
+
 	.social-icons {
 		display: flex;
 		gap: 0.5rem;
 	}
+
 	.social-icons a {
 		color: var(--primary-500);
 		transition: var(--transition);
 	}
+
 	.social-icons a:hover {
 		color: var(--primary-300);
 	}
+  
 }

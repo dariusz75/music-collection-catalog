@@ -38,7 +38,7 @@ export const socialLinks: SocialLink[] = [
 		icon: <FaLinkedin />,
 	},
 	{
-		id: 1,
+		id: 2,
 		url: 'https://github.com/dariusz75',
 		icon: <FaGithub />,
 	},
