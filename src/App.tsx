@@ -5,12 +5,13 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import { Navbar, AlbumDetailForm } from './components';
-import { About, Collection, Home, Statistics } from './pages';
+import { About, Collection, Error, Home, Statistics } from './pages';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Home />,
+		errorElement: <Error />,
 		children: [
 			{
 				index: true,
