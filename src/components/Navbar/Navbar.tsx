@@ -45,7 +45,7 @@ const Navbar: FC = () => {
 						{links.map((link) => {
 							const { id, url, text } = link;
 							return (
-								<li key={id}>
+								<li className='nav-link' key={id}>
 									<NavLink to={url}>{text}</NavLink>
 								</li>
 							);

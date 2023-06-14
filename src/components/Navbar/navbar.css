@@ -1,5 +1,4 @@
-
-@import "../../index.css";
+@import '../../index.css';
 
 nav {
 	background: var(--white);
@@ -106,5 +105,8 @@ nav {
 	.social-icons a:hover {
 		color: var(--primary-300);
 	}
-  
+}
+
+.nav-link a.active {
+	color: var(--primary-500);
 }
