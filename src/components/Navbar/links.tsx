@@ -17,7 +17,7 @@ export const links: Link[] = [
 	{
 		id: 1,
 		url: '/',
-		text: 'home',
+		text: 'about',
 	},
 	{
 		id: 2,

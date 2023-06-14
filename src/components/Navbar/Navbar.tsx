@@ -1,7 +1,7 @@
 import './navbar.css';
 import { FC, useState, useRef } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FaBars, FaMusic } from 'react-icons/fa';
-
 import { links, socialLinks } from './links';
 
 const Navbar: FC = () => {
@@ -46,7 +46,7 @@ const Navbar: FC = () => {
 							const { id, url, text } = link;
 							return (
 								<li key={id}>
-									<a href={url}>{text}</a>
+									<NavLink to={url}>{text}</NavLink>
 								</li>
 							);
 						})}
