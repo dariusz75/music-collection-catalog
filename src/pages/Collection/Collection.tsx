@@ -125,7 +125,7 @@ return (
       <button className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
     </td>
     <td className="whitespace-nowrap px-2 py-2">
-      <button className="bg-red-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+      <button className="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
     </td>
   </tr>
   })}
