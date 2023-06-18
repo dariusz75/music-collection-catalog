@@ -3,6 +3,22 @@ import axios from 'axios';
 
 const DB_TOKEN = process.env.REACT_APP_MUSIC_COLLECTION_DB_TOKEN;
 
+type albumsDataType = {
+  records: RecordType[];
+};
+
+type RecordType = {
+  id: string;
+  createdTime: string;
+  fields: {
+    Artist: string;
+    Title: string;
+    Genre: string[];
+    Format: string;
+    PurchaseDate: string;
+  }
+};
+
 const testData: albumsDataType = {
   records:[
   {
@@ -75,21 +91,9 @@ interface AlbumListProps {
   recordData: albumsDataType;
 };
 
-type RecordType = {
-  id: string;
-  createdTime: string;
-  fields: {
-    Artist: string;
-    Title: string;
-    Genre: string[];
-    Format: string;
-    PurchaseDate: string;
-  }
-};
 
-type albumsDataType = {
-  records: RecordType[];
-};
+
+
 
 const AlbumList = (props: AlbumListProps) => {
   const { records  } = props.recordData;
@@ -116,10 +120,10 @@ const Collection = () => {
           Authorization: `Bearer ${DB_TOKEN}`,
         },
       });
-      const records = res?.data;
+      const albumsFetched = res?.data.records;
+      setAlbums(albumsFetched);
       console.log('response is', res);
-      setAlbums(records);
-      console.log('records from api are', records);
+      console.log('albums fetched from api are', albumsFetched);
       setIsLoading(false);
     } catch(err) {
         setError({message: error.message});
@@ -129,7 +133,6 @@ const Collection = () => {
   }
 
 	useEffect(() => {
-    console.log('rendered', DB_TOKEN)
 		getCollection()
     
 	}, []);
