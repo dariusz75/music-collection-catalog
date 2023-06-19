@@ -4,17 +4,19 @@ import axios from 'axios';
 import AlbumList from './AlbumList';
 
 const DB_TOKEN = process.env.REACT_APP_MUSIC_COLLECTION_DB_TOKEN;
-
+const dbBaseUrl = 'https://api.airtable.com/v0/appFkhCkXUohGPZZ4'
 
 const Collection = () => {
+  
   const [isLoading, setIsLoading] = useState(true);
 	const [albums, setAlbums] = useState([]);
   const [error, setError] = useState({message:''});
+
   
   const getCollection = async () => {
     try {
       const res = await axios
-      .get('/albums', {
+      .get(`${dbBaseUrl}/albums`, {
         headers: {
           Authorization: `Bearer ${DB_TOKEN}`,
         },
