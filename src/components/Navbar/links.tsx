@@ -29,6 +29,11 @@ export const links: Link[] = [
 		url: '/statistics',
 		text: 'statistics',
 	},
+  {
+		id: 5,
+		url: '/add',
+		text: 'add album',
+	},
 ];
 
 export const socialLinks: SocialLink[] = [
