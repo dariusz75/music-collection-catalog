@@ -2,11 +2,19 @@ import {  useEffect, useState } from 'react';
 import axios from 'axios';
 
 import AlbumList from './AlbumList';
+import useAxios from '../../hooks/useAxios';
+import collection from '../../hooks/useAxios';
 
 const DB_TOKEN = process.env.REACT_APP_MUSIC_COLLECTION_DB_TOKEN;
 const dbBaseUrl = 'https://api.airtable.com/v0/appFkhCkXUohGPZZ4'
 
 const Collection = () => {
+
+  const [response, err, loading] = useAxios({
+    axiosInstance: collection,
+    method: 'GET',
+    url: '/albums',
+  })
   
   const [isLoading, setIsLoading] = useState(true);
 	const [albums, setAlbums] = useState([]);
@@ -27,7 +35,7 @@ const Collection = () => {
       console.log('albums fetched from api are', albumsFetched);
       setIsLoading(false);
     } catch(err) {
-        setError({message: error.message});
+        setError({message: (err as Error).message});
     } finally {
       setIsLoading(false);
     }
@@ -35,7 +43,7 @@ const Collection = () => {
 
 	useEffect(() => {
 		getCollection()
-    
+    console.log('hook response is', response);
 	}, []);
   
 
