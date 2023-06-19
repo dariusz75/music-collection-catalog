@@ -1,27 +1,48 @@
-import { FC, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import axios from 'axios';
+
+import AlbumList from './AlbumList';
 
 const DB_TOKEN = process.env.REACT_APP_MUSIC_COLLECTION_DB_TOKEN;
 
-const Collection: FC = () => {
+
+const Collection = () => {
+  const [isLoading, setIsLoading] = useState(true);
 	const [albums, setAlbums] = useState([]);
+  const [error, setError] = useState({message:''});
+  
+  const getCollection = async () => {
+    try {
+      const res = await axios
+      .get('/albums', {
+        headers: {
+          Authorization: `Bearer ${DB_TOKEN}`,
+        },
+      });
+      const albumsFetched = res?.data.records;
+      setAlbums(albumsFetched);
+      console.log('response is', res);
+      console.log('albums fetched from api are', albumsFetched);
+      setIsLoading(false);
+    } catch(err) {
+        setError({message: error.message});
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
 	useEffect(() => {
-    console.log('rendered', DB_TOKEN)
-		axios
-			.get('/albums', {
-				headers: {
-					Authorization: `Bearer ${DB_TOKEN}`,
-				},
-			})
-			.then(function (response) {
-				console.log(response);
-				setAlbums(response.data.records);
-				console.log('albums are', albums);
-			});
+		getCollection()
+    
 	}, []);
+  
 
-	return <div>Collection Page Component</div>;
+	return <div>
+    {isLoading && <p>Loading...</p>}
+    {!isLoading && error.message && <p>{error.message}</p>}
+    {!isLoading && !error.message && albums && <AlbumList albums={albums} />}
+    </div>;
 };
 
 export default Collection;
+

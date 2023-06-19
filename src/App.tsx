@@ -1,11 +1,9 @@
 import {
 	createBrowserRouter,
 	RouterProvider,
-	BrowserRouter,
 } from 'react-router-dom';
 import './App.css';
-import { Navbar, AlbumDetailForm } from './components';
-import { About, Collection, Error, Home, Statistics } from './pages';
+import { About, Collection, Error, Home, Statistics, AddItem } from './pages';
 
 const router = createBrowserRouter([
 	{
@@ -24,6 +22,10 @@ const router = createBrowserRouter([
 			{
 				path: 'statistics',
 				element: <Statistics />,
+			},
+      {
+				path: 'add',
+				element: <AddItem />,
 			},
 		],
 	},
