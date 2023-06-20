@@ -1,46 +1,36 @@
-import { useState, useEffect } from "react";
+import axios, { AxiosRequestConfig } from 'axios';
+import { useEffect, useState } from 'react';
 
-const useAxios = (configObj: any) => {
+export const useAxios = <T>(
+	config: AxiosRequestConfig<any>,
+	loadOnStart: boolean = true
+): [boolean, T | undefined, string, () => void] => {
+	const [loading, setLoading] = useState(true);
+	const [data, setData] = useState<T>();
+	const [error, setError] = useState('');
 
-  const {
-    axiosInstance,
-    method,
-    url,
-    requestConfig = {}
-  } = configObj;
+	useEffect(() => {
+		if (loadOnStart) sendRequest();
+		else setLoading(false);
+	}, []);
 
-  const [response, setResponse] = useState([]);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+	const request = () => {
+		sendRequest();
+	};
 
-  useEffect(() => {
-    const controller = new AbortController();
+	const sendRequest = () => {
+		setLoading(true);
 
-    const fetchData = async () => {
-      try {
-        const resp = await axiosInstance[method.toLowerCase()](url, {
-          ...requestConfig,
-          signal: controller.signal
-        });
-        console.log('api response is: ', resp);
-        setResponse(resp.data);
-      } catch (err) {
-        console.log((err as Error).message);
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    }
+		axios(config)
+			.then((response) => {
+				setError('');
+				setData(response.data);
+			})
+			.catch((error) => {
+				setError(error.message);
+			})
+			.finally(() => setLoading(false));
+	};
 
-    fetchData();
-
-    // useEffect cleanup function
-    return () => controller.abort();
-
-  }, []);
-
-  return [response, error, loading];
-
+	return [loading, data, error, request];
 };
-
-export default useAxios;
