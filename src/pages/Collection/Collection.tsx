@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, FunctionComponent } from 'react';
 
 import AlbumList from './AlbumList';
 import { useAxios } from '../../hooks/useAxios';
@@ -15,7 +14,7 @@ export interface IJsonResponse {
 			fields: {
 				artist: string;
 				title: string;
-				genre: string[];
+				category: string[];
 				format: string;
 				purchaseDate: string;
 			};
@@ -23,7 +22,7 @@ export interface IJsonResponse {
 	];
 }
 
-const Collection: React.FunctionComponent = () => {
+const Collection: FunctionComponent = () => {
 	const [loading, data, error, request] = useAxios<IJsonResponse>({
 		method: 'get',
 		url: `${dbBaseUrl}/albums`,

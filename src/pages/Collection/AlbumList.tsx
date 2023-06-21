@@ -5,7 +5,7 @@ type RecordType = [
 		fields: {
 			artist: string;
 			title: string;
-			genre: string[];
+			category: string[];
 			format: string;
 			purchaseDate: string;
 		};
@@ -48,7 +48,7 @@ const AlbumList = (props: AlbumListProps) => {
 								</thead>
 								<tbody>
 									{albums.map((album) => {
-										const { artist, title, format, genre, purchaseDate } =
+										const { artist, title, format, category, purchaseDate } =
 											album.fields;
 
 										return (
@@ -63,7 +63,9 @@ const AlbumList = (props: AlbumListProps) => {
 												<td className='whitespace-nowrap px-6 py-4'>
 													{format}
 												</td>
-												<td className='whitespace-nowrap px-6 py-4'>{genre}</td>
+												<td className='whitespace-nowrap px-6 py-4'>
+													{category[0]}
+												</td>
 												<td className='whitespace-nowrap px-6 py-4'>
 													{purchaseDate}
 												</td>

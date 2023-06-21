@@ -110,3 +110,29 @@ nav {
 .nav-link a.active {
 	color: var(--primary-500);
 }
+
+.login-btn {
+	display: flex;
+	justify-content: space-between;
+	width: 110px;
+}
+
+.login-form-wrapper {
+	padding: 10px;
+	width: 150px;
+	background-color: #fff;
+	position: absolute;
+	background: var(--white);
+	box-shadow: var(--shadow-2);
+	border-radius: var(--borderRadius);
+}
+
+.login-form-wrapper label {
+	color: var(--grey-700);
+}
+
+.login-form-wrapper input {
+	width: 100%;
+	border: var(--grey-300) solid 1px;
+	border-radius: var(--borderRadius);
+}
