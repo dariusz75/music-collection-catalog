@@ -5,6 +5,7 @@ interface Link {
 	id: number;
 	url: string;
 	text: string;
+	admin: boolean;
 }
 
 interface SocialLink {
@@ -18,21 +19,25 @@ export const links: Link[] = [
 		id: 1,
 		url: '/',
 		text: 'about',
+		admin: false,
 	},
 	{
 		id: 2,
 		url: '/collection',
 		text: 'collection',
+		admin: false,
 	},
 	{
 		id: 3,
 		url: '/statistics',
 		text: 'statistics',
+		admin: false,
 	},
 	{
 		id: 5,
 		url: '/add',
 		text: 'add album',
+		admin: true,
 	},
 ];
 

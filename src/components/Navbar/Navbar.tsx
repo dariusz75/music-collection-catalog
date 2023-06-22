@@ -85,7 +85,12 @@ const Navbar: FC = () => {
 						{links.map((link) => {
 							const { id, url, text } = link;
 							return (
-								<li className='nav-link' key={id}>
+								<li
+									className={
+										!isAdmin && link.admin ? 'nav-link hidden' : 'nav-link'
+									}
+									key={id}
+								>
 									<NavLink to={url}>{text}</NavLink>
 								</li>
 							);
