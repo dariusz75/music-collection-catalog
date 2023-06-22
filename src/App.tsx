@@ -1,9 +1,7 @@
-import {
-	createBrowserRouter,
-	RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import { About, Collection, Error, Home, Statistics, AddItem } from './pages';
+import { AdminContextProvider } from './context/AdminContext';
 
 const router = createBrowserRouter([
 	{
@@ -23,7 +21,7 @@ const router = createBrowserRouter([
 				path: 'statistics',
 				element: <Statistics />,
 			},
-      {
+			{
 				path: 'add',
 				element: <AddItem />,
 			},
@@ -34,7 +32,9 @@ const router = createBrowserRouter([
 function App() {
 	return (
 		<main>
-			<RouterProvider router={router}></RouterProvider>
+			<AdminContextProvider>
+				<RouterProvider router={router}></RouterProvider>
+			</AdminContextProvider>
 		</main>
 	);
 }

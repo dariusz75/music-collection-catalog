@@ -1,3 +1,7 @@
+import { useContext, useEffect } from 'react';
+
+import { AdminContext } from '../../context/AdminContext';
+
 type RecordType = [
 	{
 		id: string;
@@ -17,7 +21,13 @@ interface AlbumListProps {
 }
 
 const AlbumList = (props: AlbumListProps) => {
+	const testAdmin = useContext(AdminContext);
 	const { albums } = props;
+
+	useEffect(() => {
+		console.log('CONTEXTTT is', testAdmin);
+	}, []);
+
 	return (
 		<>
 			<div className='flex flex-col'>
