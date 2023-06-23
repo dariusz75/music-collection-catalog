@@ -1,17 +1,38 @@
-import { type } from 'os';
-import { ReactNode, createContext } from 'react';
+import {
+	ReactNode,
+	createContext,
+	useState,
+	Dispatch,
+	SetStateAction,
+} from 'react';
 
-type AdminContextProviderProps = {
-	children: ReactNode;
+export type Admin = {
+	admin: boolean;
 };
 
-const isAdmin = { isAdmin: false };
-export const AdminContext = createContext(isAdmin);
+export interface AdminContextInterface {
+	admin: boolean;
+	setAdmin: Dispatch<SetStateAction<Admin>>;
+}
+
+const defaultState = {
+	admin: false,
+	setAdmin: (admin: Admin) => {},
+} as AdminContextInterface;
+
+export const AdminContext = createContext(defaultState);
+
+export type AdminContextProviderProps = {
+	children: ReactNode;
+};
 
 export const AdminContextProvider = ({
 	children,
 }: AdminContextProviderProps) => {
+	const [admin, setAdmin] = useState<Admin>({ admin: false });
 	return (
-		<AdminContext.Provider value={isAdmin}>{children}</AdminContext.Provider>
+		<AdminContext.Provider value={{ admin, setAdmin }}>
+			{children}
+		</AdminContext.Provider>
 	);
 };
