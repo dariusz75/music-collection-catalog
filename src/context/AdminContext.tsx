@@ -6,33 +6,29 @@ import {
 	SetStateAction,
 } from 'react';
 
-export type Admin = {
-	admin: boolean;
-};
-
 export interface AdminContextInterface {
-	admin: boolean;
-	setAdmin: Dispatch<SetStateAction<Admin>>;
+  admin: boolean;
+  setAdmin: Dispatch<SetStateAction<boolean>>;
 }
 
 const defaultState = {
-	admin: false,
-	setAdmin: (admin: Admin) => {},
+  admin: false,
+  setAdmin: (admin: boolean) => {},
 } as AdminContextInterface;
 
 export const AdminContext = createContext(defaultState);
 
 export type AdminContextProviderProps = {
-	children: ReactNode;
+  children: ReactNode;
 };
 
-export const AdminContextProvider = ({
-	children,
+export const AdminProvider = ({
+  children,
 }: AdminContextProviderProps) => {
-	const [admin, setAdmin] = useState<Admin>({ admin: false });
-	return (
-		<AdminContext.Provider value={{ admin, setAdmin }}>
-			{children}
-		</AdminContext.Provider>
-	);
+  const [admin, setAdmin] = useState<boolean>(false);
+  return (
+    <AdminContext.Provider value={{ admin, setAdmin }}>
+      {children}
+    </AdminContext.Provider>
+  );
 };

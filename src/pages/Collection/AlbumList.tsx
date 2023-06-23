@@ -21,11 +21,11 @@ interface AlbumListProps {
 }
 
 const AlbumList = (props: AlbumListProps) => {
-	const testAdmin = useContext(AdminContext);
+	const {admin, setAdmin} = useContext(AdminContext);
 	const { albums } = props;
 
 	useEffect(() => {
-		console.log('CONTEXTTT is', testAdmin);
+		console.log('CONTEXTTT admin is', admin);
 	}, []);
 
 	return (
@@ -80,14 +80,14 @@ const AlbumList = (props: AlbumListProps) => {
 													{purchaseDate}
 												</td>
 												<td className='whitespace-nowrap px-2 py-2'>
-													<button className='bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                        {admin && <button className='bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
 														Edit
-													</button>
+													</button>}
 												</td>
 												<td className='whitespace-nowrap px-2 py-2'>
-													<button className='bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
+                        {admin && <button className='bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
 														Delete
-													</button>
+													</button>}
 												</td>
 											</tr>
 										);

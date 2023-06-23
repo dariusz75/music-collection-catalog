@@ -1,5 +1,5 @@
 import './navbar.css';
-import { FC, useState, useRef } from 'react';
+import { FC, useState, useRef, useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
 	FaBars,
@@ -8,6 +8,8 @@ import {
 	FaArrowAltCircleUp,
 } from 'react-icons/fa';
 import { links, socialLinks } from './links';
+import { AdminProvider, AdminContext } from '../../context/AdminContext';
+
 
 const ADMIN_NAME = process.env.REACT_APP_MUSIC_COLLECTION_ADMIN_NAME;
 const ADMIN_PASSWORD = process.env.REACT_APP_MUSIC_COLLECTION_ADMIN_PASSWORD;
@@ -17,7 +19,8 @@ const Navbar: FC = () => {
 	const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
 	const [name, setName] = useState('');
 	const [password, setPassword] = useState('');
-	const [isAdmin, setIsAdmin] = useState(false);
+	// const [isAdmin, setIsAdmin] = useState(false);
+  const {admin, setAdmin} = useContext(AdminContext);
 
 	const linksContainerRef = useRef<HTMLDivElement>(null);
 	const linksRef = useRef<HTMLUListElement>(null);
@@ -51,18 +54,21 @@ const Navbar: FC = () => {
 	const handleSubmitLogin = (e: any) => {
 		e.preventDefault();
 		if (name === ADMIN_NAME && password === ADMIN_PASSWORD) {
-			setIsAdmin(true);
+      setAdmin(true);
 			setIsLoginFormOpen(false);
 		} else {
 			console.log('wrong login details');
 		}
 		console.log('submitted', name, password);
-		console.log('isAdmin', isAdmin);
 	};
 
 	const handleLogOut = () => {
-		setIsAdmin(false);
+		setAdmin(false);
 	};
+
+  useEffect(() => {
+console.log('admin is', admin)
+  }, [])
 
 	return (
 		<nav>
@@ -87,7 +93,7 @@ const Navbar: FC = () => {
 							return (
 								<li
 									className={
-										!isAdmin && link.admin ? 'nav-link hidden' : 'nav-link'
+										!admin && link.admin ? 'nav-link hidden' : 'nav-link'
 									}
 									key={id}
 								>
@@ -111,7 +117,7 @@ const Navbar: FC = () => {
 					})}
 				</ul>
 				<div className='login-container'>
-					{!isAdmin && (
+					{!admin && (
 						<button
 							className='login-btn bg-blue-800 hover:bg-blue-700 text-white py-2 px-2 rounded'
 							onClick={toggleLoginFormOpen}
@@ -126,7 +132,7 @@ const Navbar: FC = () => {
 							</span>
 						</button>
 					)}
-					{isAdmin && (
+					{admin && (
 						<button
 							className='login-btn bg-blue-800 hover:bg-blue-700 text-white py-2 px-2 rounded'
 							onClick={handleLogOut}
