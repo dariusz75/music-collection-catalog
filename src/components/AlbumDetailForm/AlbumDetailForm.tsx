@@ -1,6 +1,4 @@
-import { FC } from 'react';
-
-const AlbumDetailForm: FC = () => {
+const AlbumDetailForm = () => {
 	return <div>Album Detail Form Component</div>;
 };
 

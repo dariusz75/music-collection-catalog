@@ -1,5 +1,5 @@
 import './navbar.css';
-import { FC, useState, useRef, useContext, useEffect } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
 	FaBars,
@@ -8,19 +8,18 @@ import {
 	FaArrowAltCircleUp,
 } from 'react-icons/fa';
 import { links, socialLinks } from './links';
-import { AdminProvider, AdminContext } from '../../context/AdminContext';
-
+import { AdminContext } from '../../context/AdminContext';
 
 const ADMIN_NAME = process.env.REACT_APP_MUSIC_COLLECTION_ADMIN_NAME;
 const ADMIN_PASSWORD = process.env.REACT_APP_MUSIC_COLLECTION_ADMIN_PASSWORD;
 
-const Navbar: FC = () => {
+const Navbar = () => {
 	const [showLinks, setShowLinks] = useState(false);
 	const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
 	const [name, setName] = useState('');
 	const [password, setPassword] = useState('');
-	// const [isAdmin, setIsAdmin] = useState(false);
-  const {admin, setAdmin} = useContext(AdminContext);
+
+	const { admin, setAdmin } = useContext(AdminContext);
 
 	const linksContainerRef = useRef<HTMLDivElement>(null);
 	const linksRef = useRef<HTMLUListElement>(null);
@@ -54,7 +53,7 @@ const Navbar: FC = () => {
 	const handleSubmitLogin = (e: any) => {
 		e.preventDefault();
 		if (name === ADMIN_NAME && password === ADMIN_PASSWORD) {
-      setAdmin(true);
+			setAdmin(true);
 			setIsLoginFormOpen(false);
 		} else {
 			console.log('wrong login details');
@@ -66,9 +65,9 @@ const Navbar: FC = () => {
 		setAdmin(false);
 	};
 
-  useEffect(() => {
-console.log('admin is', admin)
-  }, [])
+	useEffect(() => {
+		console.log('admin is', admin);
+	}, []);
 
 	return (
 		<nav>
@@ -88,33 +87,27 @@ console.log('admin is', admin)
 					style={linkStyles}
 				>
 					<ul className='links' ref={linksRef}>
-						{links.map((link) => {
-							const { id, url, text } = link;
-							return (
-								<li
-									className={
-										!admin && link.admin ? 'nav-link hidden' : 'nav-link'
-									}
-									key={id}
-								>
-									<NavLink to={url}>{text}</NavLink>
-								</li>
-							);
-						})}
+						{links.map(({ id, url, text, forAdminOnly }) => (
+							<li
+								className={
+									!admin && forAdminOnly ? 'nav-link hidden' : 'nav-link'
+								}
+								key={id}
+							>
+								<NavLink to={url}>{text}</NavLink>
+							</li>
+						))}
 					</ul>
 				</div>
 				{/* social media links */}
 				<ul className='social-icons'>
-					{socialLinks.map((socialIcon) => {
-						const { id, url, icon } = socialIcon;
-						return (
-							<li key={id}>
-								<a href={url} target='_new'>
-									{icon}
-								</a>
-							</li>
-						);
-					})}
+					{socialLinks.map(({ id, url, icon }) => (
+						<li key={id}>
+							<a href={url} target='_new'>
+								{icon}
+							</a>
+						</li>
+					))}
 				</ul>
 				<div className='login-container'>
 					{!admin && (

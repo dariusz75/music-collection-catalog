@@ -1,10 +1,7 @@
-import { useEffect, FunctionComponent } from 'react';
+import { useEffect } from 'react';
 
 import AlbumList from './AlbumList';
 import { useAxios } from '../../hooks/useAxios';
-
-const DB_TOKEN = process.env.REACT_APP_MUSIC_COLLECTION_DB_TOKEN;
-const dbBaseUrl = 'https://api.airtable.com/v0/appFkhCkXUohGPZZ4';
 
 export interface IJsonResponse {
 	records: [
@@ -22,13 +19,9 @@ export interface IJsonResponse {
 	];
 }
 
-const Collection: FunctionComponent = () => {
+const Collection = () => {
 	const [loading, data, error, request] = useAxios<IJsonResponse>({
-		method: 'get',
-		url: `${dbBaseUrl}/albums`,
-		headers: {
-			Authorization: `Bearer ${DB_TOKEN}`,
-		},
+		url: 'albums',
 	});
 
 	useEffect(() => {

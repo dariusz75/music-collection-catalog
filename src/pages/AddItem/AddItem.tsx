@@ -1,6 +1,4 @@
-import { FC } from 'react';
-
-const AddItem: FC = () => {
+const AddItem = () => {
 	return <div>Add Album</div>;
 };
 
