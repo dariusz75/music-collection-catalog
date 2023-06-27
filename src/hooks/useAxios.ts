@@ -19,18 +19,6 @@ export const useAxios = <T>(
 	const [data, setData] = useState<T>();
 	const [error, setError] = useState('');
 
-	useEffect(() => {
-		if (loadOnStart) {
-			sendRequest();
-		} else {
-			setLoading(false);
-		}
-	}, []);
-
-	const request = () => {
-		sendRequest();
-	};
-
 	const sendRequest = () => {
 		setLoading(true);
 
@@ -50,6 +38,18 @@ export const useAxios = <T>(
 			})
 			.finally(() => setLoading(false));
 	};
+
+	const request = () => {
+		sendRequest();
+	};
+
+	useEffect(() => {
+		if (loadOnStart) {
+			sendRequest();
+		} else {
+			setLoading(false);
+		}
+	}, []);
 
 	return [loading, data, error, request];
 };
