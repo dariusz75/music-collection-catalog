@@ -2,30 +2,18 @@ import { useContext, useEffect } from 'react';
 
 import { AdminContext } from '../../context/AdminContext';
 
-type RecordType = [
-	{
-		id: string;
-		createdTime: string;
-		fields: {
-			artist: string;
-			title: string;
-			category: string[];
-			format: string;
-			purchaseDate: string;
-		};
-	}
-];
+import { AlbumType } from '../../types/types';
 
 interface AlbumListProps {
-	albums: RecordType;
+	albums: AlbumType[];
 }
 
 const AlbumList = (props: AlbumListProps) => {
-	const {admin, setAdmin} = useContext(AdminContext);
+	const { admin, setAdmin } = useContext(AdminContext);
 	const { albums } = props;
 
 	useEffect(() => {
-		console.log('CONTEXTTT admin is', admin);
+		console.log('CONTEXT admin is', admin);
 	}, []);
 
 	return (
@@ -80,14 +68,18 @@ const AlbumList = (props: AlbumListProps) => {
 													{purchaseDate}
 												</td>
 												<td className='whitespace-nowrap px-2 py-2'>
-                        {admin && <button className='bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-														Edit
-													</button>}
+													{admin && (
+														<button className='bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+															Edit
+														</button>
+													)}
 												</td>
 												<td className='whitespace-nowrap px-2 py-2'>
-                        {admin && <button className='bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
-														Delete
-													</button>}
+													{admin && (
+														<button className='bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
+															Delete
+														</button>
+													)}
 												</td>
 											</tr>
 										);
