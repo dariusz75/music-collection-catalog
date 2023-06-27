@@ -1,0 +1,15 @@
+@import '../../index.css';
+
+.main-wrapper {
+	display: flex;
+	justify-content: center;
+	padding: calc(var(--padding) * 10);
+}
+
+.form-wrapper {
+	padding: 10px;
+	background-color: #fff;
+	background: var(--white);
+	box-shadow: var(--shadow-2);
+	border-radius: var(--borderRadius);
+}
