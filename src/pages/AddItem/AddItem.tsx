@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import './addItem.css';
 import { AlbumType } from '../../types/types';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 const AddItem = () => {
+	const [purchaseDate, setPurchaseDate] = useState(new Date());
 	const [formState, setFormState] = useState<AlbumType>({
 		id: '',
 		createdTime: '',
@@ -11,7 +15,7 @@ const AddItem = () => {
 			title: '',
 			category: [''],
 			format: 'CD',
-			purchaseDate: 'replace with date picker',
+			purchaseDate: '',
 		},
 	});
 
@@ -41,12 +45,6 @@ const AddItem = () => {
 					fields: { ...formState.fields, category: [e.target.value] },
 				});
 				break;
-			case 'purchaseDate':
-				setFormState({
-					...formState,
-					fields: { ...formState.fields, purchaseDate: e.target.value },
-				});
-				break;
 			default:
 				return;
 		}
@@ -55,6 +53,14 @@ const AddItem = () => {
 	const handleSubmitAdd = (e: { preventDefault: () => void }) => {
 		e.preventDefault();
 		console.log('formState in handleSubmitAdd is', formState);
+	};
+
+	const handleDateChange = (date: any) => {
+		setPurchaseDate(date);
+		setFormState({
+			...formState,
+			fields: { ...formState.fields, purchaseDate: date },
+		});
 	};
 
 	return (
@@ -158,10 +164,10 @@ const AddItem = () => {
 							>
 								Purchase Date
 							</label>
-							<input
-								className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-								id='purchaseDate'
-								type='text'
+							<DatePicker
+								id='kkk'
+								selected={purchaseDate}
+								onChange={(date) => handleDateChange(date)}
 							/>
 						</div>
 					</div>

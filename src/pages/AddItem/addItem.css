@@ -13,3 +13,13 @@
 	box-shadow: var(--shadow-2);
 	border-radius: var(--borderRadius);
 }
+
+.react-datepicker__input-container input {
+	background-color: rgb(229 231 235);
+	width: 120px;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	border-radius: 0.25rem;
+}
