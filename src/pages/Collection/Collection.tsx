@@ -3,21 +3,7 @@ import { useEffect } from 'react';
 import AlbumList from './AlbumList';
 import { useAxios } from '../../hooks/useAxios';
 
-export interface IJsonResponse {
-	records: [
-		{
-			id: string;
-			createdTime: string;
-			fields: {
-				artist: string;
-				title: string;
-				category: string[];
-				format: string;
-				purchaseDate: string;
-			};
-		}
-	];
-}
+import { IJsonResponse } from '../../types/types';
 
 const Collection = () => {
 	const [loading, data, error, request] = useAxios<IJsonResponse>({

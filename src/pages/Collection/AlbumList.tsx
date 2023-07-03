@@ -1,20 +1,26 @@
 import { useContext, useEffect } from 'react';
+import { useAxios } from '../../hooks/useAxios';
 
 import { AdminContext } from '../../context/AdminContext';
-
-import { AlbumType } from '../../types/types';
+import { AlbumType, IJsonResponse } from '../../types/types';
+import { deleteAlbum } from '../../utilities';
 
 interface AlbumListProps {
 	albums: AlbumType[];
 }
 
 const AlbumList = (props: AlbumListProps) => {
+	const [loading, data, error, request] = useAxios<IJsonResponse>({
+		url: 'albums',
+	});
 	const { admin, setAdmin } = useContext(AdminContext);
+
 	const { albums } = props;
 
-	useEffect(() => {
-		console.log('CONTEXT admin is', admin);
-	}, []);
+	const handleDelete = (albumId: any) => {
+		console.log('handleDelete', albumId);
+		deleteAlbum(albumId);
+	};
 
 	return (
 		<>
@@ -76,7 +82,10 @@ const AlbumList = (props: AlbumListProps) => {
 												</td>
 												<td className='whitespace-nowrap px-2 py-2'>
 													{admin && (
-														<button className='bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>
+														<button
+															className='bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
+															onClick={() => handleDelete(album.id)}
+														>
 															Delete
 														</button>
 													)}

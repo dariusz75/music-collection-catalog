@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import './addItem.css';
-import { AlbumType } from '../../types/types';
+import { AddAlbumType } from '../../types/types';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import { addAlbum } from '../../utilities';
 
 const AddItem = () => {
 	const [purchaseDate, setPurchaseDate] = useState(new Date());
-	const [formState, setFormState] = useState<AlbumType>({
-		id: '',
-		createdTime: '',
+	const [formState, setFormState] = useState<AddAlbumType>({
 		fields: {
 			artist: '',
 			title: '',
-			category: [''],
+			genre: [''],
 			format: 'CD',
 			purchaseDate: '',
 		},
@@ -42,7 +41,7 @@ const AddItem = () => {
 			case 'category':
 				setFormState({
 					...formState,
-					fields: { ...formState.fields, category: [e.target.value] },
+					fields: { ...formState.fields, genre: [e.target.value] },
 				});
 				break;
 			default:
@@ -52,14 +51,24 @@ const AddItem = () => {
 
 	const handleSubmitAdd = (e: { preventDefault: () => void }) => {
 		e.preventDefault();
-		console.log('formState in handleSubmitAdd is', formState);
+
+		const formJson = JSON.stringify(formState);
+		console.log('formState in handleSubmitAdd is', formJson);
+		addAlbum(formJson);
 	};
 
 	const handleDateChange = (date: any) => {
 		setPurchaseDate(date);
 		setFormState({
 			...formState,
-			fields: { ...formState.fields, purchaseDate: date },
+			fields: {
+				...formState.fields,
+				purchaseDate: `${date.toLocaleString('default', {
+					year: 'numeric',
+				})}-${date.toLocaleString('default', {
+					month: '2-digit',
+				})}-${date.toLocaleString('default', { day: '2-digit' })}`,
+			},
 		});
 	};
 
@@ -140,11 +149,16 @@ const AddItem = () => {
 									className='block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 									id='category'
 									onChange={(e) => handleInputChange(e)}
-									value={formState.fields.category[0]}
+									value={formState.fields.genre[0]}
 								>
-									<option value='Rock'>Rock</option>
+									<option value='rec6jHXMmGsIkXKb8'>Alternative</option>
+									<option value='reczPn3xYhy5U0Rup'>Pop</option>
+									<option label='Rock' value='Rock'>
+										Rock
+									</option>
 									<option value='Metal'>Metal</option>
-									<option value='Hip-Hop'>Hip-Hop</option>
+									<option value='recU45ztU9XMQGShJ'>Hip-Hop</option>
+									<option value='recDfJeV3tCLQDmx8'>Synth</option>
 								</select>
 								<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
 									<svg
@@ -165,7 +179,7 @@ const AddItem = () => {
 								Purchase Date
 							</label>
 							<DatePicker
-								id='kkk'
+								id='datePicker'
 								selected={purchaseDate}
 								onChange={(date) => handleDateChange(date)}
 							/>
