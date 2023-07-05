@@ -29,6 +29,8 @@ const AlbumList = (props: AlbumListProps) => {
 		deleteAlbum(albumId);
 	};
 
+	useEffect(() => {});
+
 	return (
 		<>
 			<div className='flex flex-col'>
@@ -105,7 +107,7 @@ const AlbumList = (props: AlbumListProps) => {
 					</div>
 				</div>
 			</div>
-			<Modal openModal={open} albumToEdit={albumToEdit} />
+			<Modal openModal={open} setOpen={setOpen} albumToEdit={albumToEdit} />
 		</>
 	);
 };
