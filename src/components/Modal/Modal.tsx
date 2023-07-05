@@ -17,7 +17,6 @@ const Modal = (props: any) => {
 	const cancelButtonRef = useRef(null);
 
 	useEffect(() => {
-		setOpen(openModal);
 		console.log('album is', albumToEdit);
 		console.log('open in Modal is', open);
 		console.log('openModal is', openModal);
