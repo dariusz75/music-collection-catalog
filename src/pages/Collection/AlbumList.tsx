@@ -12,14 +12,15 @@ interface AlbumListProps {
 
 const AlbumList = (props: AlbumListProps) => {
 	const { admin, setAdmin } = useContext(AdminContext);
-	let open = false;
+	const [open, setOpen] = useState<boolean>(false);
+
 	let albumToEdit;
 
 	const { albums } = props;
 
 	const handleEdit = (albumId: any) => {
 		console.log('edit', albumId);
-		open = true;
+		setOpen(true);
 		const aTe = albums.find((album) => album.id === albumId);
 		albumToEdit = aTe;
 

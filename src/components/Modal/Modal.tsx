@@ -12,14 +12,17 @@ interface ModalProps {
 
 const Modal = (props: any) => {
 	const { openModal, albumToEdit } = props;
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(openModal);
 
 	const cancelButtonRef = useRef(null);
 
 	useEffect(() => {
+		setOpen(openModal);
 		console.log('album is', albumToEdit);
+		console.log('open in Modal is', open);
 		console.log('openModal is', openModal);
-	});
+	}, []);
+
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
