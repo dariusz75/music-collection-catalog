@@ -12,17 +12,16 @@ interface AlbumListProps {
 
 const AlbumList = (props: AlbumListProps) => {
 	const { admin, setAdmin } = useContext(AdminContext);
-	const [open, setOpen] = useState<boolean>(false);
+	const [open, setOpen] = useState(false);
 
 	let albumToEdit;
 
 	const { albums } = props;
 
 	const handleEdit = (albumId: any) => {
-		console.log('edit', albumId);
+		console.log('open is', open);
 		setOpen(true);
-		const aTe = albums.find((album) => album.id === albumId);
-		albumToEdit = aTe;
+		albumToEdit = albums.find((album) => album.id === albumId);
 
 		console.log('found', albumToEdit);
 		console.log('open is', open);
@@ -66,7 +65,6 @@ const AlbumList = (props: AlbumListProps) => {
 									{albums.map((album) => {
 										const { artist, title, format, category, purchaseDate } =
 											album.fields;
-
 										return (
 											<tr
 												key={album.id}
