@@ -11,20 +11,17 @@ interface AlbumListProps {
 }
 
 const AlbumList = (props: AlbumListProps) => {
+	const { albums } = props;
 	const { admin, setAdmin } = useContext(AdminContext);
 	const [open, setOpen] = useState(false);
 
 	let albumToEdit;
 
-	const { albums } = props;
-
 	const handleEdit = (albumId: any) => {
-		console.log('open is', open);
 		setOpen(true);
 		albumToEdit = albums.find((album) => album.id === albumId);
 
-		console.log('found', albumToEdit);
-		console.log('open is', open);
+		console.log('open in AlbumList is', open);
 	};
 
 	const handleDelete = (albumId: any) => {
