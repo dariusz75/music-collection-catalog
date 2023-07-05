@@ -29,8 +29,6 @@ const AlbumList = (props: AlbumListProps) => {
 		deleteAlbum(albumId);
 	};
 
-	useEffect(() => {});
-
 	return (
 		<>
 			<div className='flex flex-col'>
