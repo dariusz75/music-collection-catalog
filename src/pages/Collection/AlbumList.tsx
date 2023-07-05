@@ -1,26 +1,38 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useAxios } from '../../hooks/useAxios';
 
 import { AdminContext } from '../../context/AdminContext';
 import { AlbumType, IJsonResponse } from '../../types/types';
 import { deleteAlbum } from '../../utilities';
+import { Modal } from '../../components';
 
 interface AlbumListProps {
 	albums: AlbumType[];
 }
 
 const AlbumList = (props: AlbumListProps) => {
-	const [loading, data, error, request] = useAxios<IJsonResponse>({
-		url: 'albums',
-	});
 	const { admin, setAdmin } = useContext(AdminContext);
+	let open = false;
+	let albumToEdit;
 
 	const { albums } = props;
+
+	const handleEdit = (albumId: any) => {
+		console.log('edit', albumId);
+		open = true;
+		const aTe = albums.find((album) => album.id === albumId);
+		albumToEdit = aTe;
+
+		console.log('found', albumToEdit);
+		console.log('open is', open);
+	};
 
 	const handleDelete = (albumId: any) => {
 		console.log('handleDelete', albumId);
 		deleteAlbum(albumId);
 	};
+
+	useEffect(() => {});
 
 	return (
 		<>
@@ -46,7 +58,6 @@ const AlbumList = (props: AlbumListProps) => {
 										<th scope='col' className='px-6 py-4'>
 											Purchase Date
 										</th>
-										<th></th>
 										<th></th>
 									</tr>
 								</thead>
@@ -75,19 +86,20 @@ const AlbumList = (props: AlbumListProps) => {
 												</td>
 												<td className='whitespace-nowrap px-2 py-2'>
 													{admin && (
-														<button className='bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-															Edit
-														</button>
-													)}
-												</td>
-												<td className='whitespace-nowrap px-2 py-2'>
-													{admin && (
-														<button
-															className='bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
-															onClick={() => handleDelete(album.id)}
-														>
-															Delete
-														</button>
+														<div>
+															<button
+																onClick={() => handleEdit(album.id)}
+																className='bg-blue-800 hover:bg-blue-700 text-white font-bold mr-2 py-2 px-4 rounded'
+															>
+																Edit
+															</button>
+															<button
+																className='bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
+																onClick={() => handleDelete(album.id)}
+															>
+																Delete
+															</button>
+														</div>
 													)}
 												</td>
 											</tr>
@@ -99,6 +111,7 @@ const AlbumList = (props: AlbumListProps) => {
 					</div>
 				</div>
 			</div>
+			<Modal openModal={open} albumToEdit={albumToEdit} />
 		</>
 	);
 };
