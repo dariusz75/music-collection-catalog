@@ -15,11 +15,11 @@ const Modal = (props: any) => {
 	const [purchaseDate, setPurchaseDate] = useState(new Date());
 	const [formState, setFormState] = useState<AddAlbumType>({
 		fields: {
-			artist: albumToEdit.fields.artist,
-			title: albumToEdit.title,
+			artist: '',
+			title: '',
 			genre: [''],
-			format: albumToEdit.format,
-			purchaseDate: albumToEdit.purchaseDate,
+			format: '',
+			purchaseDate: '',
 		},
 	});
 
@@ -64,9 +64,12 @@ const Modal = (props: any) => {
 	};
 
 	useEffect(() => {
+		setFormState(albumToEdit);
+	}, []);
+
+	useEffect(() => {
 		console.log('albumToEdit in Modal is', albumToEdit);
-		console.log('open in Modal is', open);
-		console.log('openModal is', openModal);
+		console.log('formState is', formState);
 		setOpen(openModal);
 	}, [openModal]);
 
