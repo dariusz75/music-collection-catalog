@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useAxios } from '../../hooks/useAxios';
 
 import { AdminContext } from '../../context/AdminContext';
-import { AlbumType, IJsonResponse } from '../../types/types';
+import { AlbumType, EditAlbumType } from '../../types/types';
 import { deleteAlbum } from '../../utilities';
 import { Modal } from '../../components';
 
@@ -14,14 +14,20 @@ const AlbumList = (props: AlbumListProps) => {
 	const { albums } = props;
 	const { admin, setAdmin } = useContext(AdminContext);
 	const [open, setOpen] = useState(false);
-
-	let albumToEdit;
+	const [albumToEdit, setAlbumToEdit] = useState<any>({
+		fields: {
+			artist: '',
+			title: '',
+			genre: [''],
+			format: 'CD',
+			purchaseDate: '',
+		},
+	});
 
 	const handleEdit = (albumId: any) => {
 		setOpen(true);
-		albumToEdit = albums.find((album) => album.id === albumId);
-
-		console.log('open in AlbumList is', open);
+		const selectedAlbum = albums.find((album) => album.id === albumId);
+		setAlbumToEdit(selectedAlbum);
 	};
 
 	const handleDelete = (albumId: any) => {
@@ -29,7 +35,9 @@ const AlbumList = (props: AlbumListProps) => {
 		deleteAlbum(albumId);
 	};
 
-	useEffect(() => {});
+	useEffect(() => {
+		console.log('albumToEdit is', albumToEdit);
+	}, [open]);
 
 	return (
 		<>

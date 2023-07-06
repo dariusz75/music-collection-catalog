@@ -20,6 +20,16 @@ export type AddAlbumType = {
 	};
 };
 
+export type EditAlbumType = {
+	fields: {
+		artist: string;
+		title: string;
+		genre: string[];
+		format: string;
+		purchaseDate: string;
+	};
+};
+
 export interface IJsonResponse {
 	records: AlbumType[];
 }
