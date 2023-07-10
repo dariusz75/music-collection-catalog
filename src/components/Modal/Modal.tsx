@@ -2,7 +2,6 @@ import { Fragment, useRef, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { AlbumType, AddAlbumType, IJsonResponse } from '../../types/types';
 import DatePicker from 'react-datepicker';
-import React from 'react';
 
 interface ModalProps {
 	openModal: boolean;
@@ -10,7 +9,7 @@ interface ModalProps {
 }
 
 const Modal = (props: any) => {
-	const { openModal, albumToEdit } = props;
+	const { openModal, albumToEdit, request } = props;
 	const [open, setOpen] = useState(openModal);
 	const [purchaseDate, setPurchaseDate] = useState(new Date());
 	const [formState, setFormState] = useState<AddAlbumType>({

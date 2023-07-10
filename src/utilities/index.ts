@@ -1,3 +1,3 @@
-import { addAlbum, deleteAlbum } from './albumsApiTools';
+import { addAlbum, deleteAlbum, updateAlbum } from './albumsApiTools';
 
-export { addAlbum, deleteAlbum };
+export { addAlbum, deleteAlbum, updateAlbum };

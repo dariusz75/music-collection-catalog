@@ -35,3 +35,20 @@ export const addAlbum = (albumDetails: any) => {
 			console.error(error);
 		});
 };
+
+export const updateAlbum = (albumId: any, albumDetails: any) => {
+	axios
+		.patch(`${DB_BASE_URL}/albums/${albumId}`, albumDetails, {
+			headers: {
+				Authorization: `Bearer ${DB_TOKEN}`,
+				'Content-Type': 'application/json',
+			},
+		})
+		.then((response) => {
+			console.log('Album updated');
+			console.log('response on update is', response);
+		})
+		.catch((error) => {
+			console.error(error);
+		});
+};

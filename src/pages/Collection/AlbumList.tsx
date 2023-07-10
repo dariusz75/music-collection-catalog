@@ -8,10 +8,11 @@ import { Modal } from '../../components';
 
 interface AlbumListProps {
 	albums: AlbumType[];
+	request: any;
 }
 
 const AlbumList = (props: AlbumListProps) => {
-	const { albums } = props;
+	const { albums, request } = props;
 	const { admin, setAdmin } = useContext(AdminContext);
 	const [open, setOpen] = useState(false);
 	const [albumToEdit, setAlbumToEdit] = useState<any>({
@@ -33,6 +34,7 @@ const AlbumList = (props: AlbumListProps) => {
 	const handleDelete = (albumId: any) => {
 		console.log('handleDelete', albumId);
 		deleteAlbum(albumId);
+		request();
 	};
 
 	useEffect(() => {
@@ -115,7 +117,12 @@ const AlbumList = (props: AlbumListProps) => {
 					</div>
 				</div>
 			</div>
-			<Modal openModal={open} setOpen={setOpen} albumToEdit={albumToEdit} />
+			<Modal
+				openModal={open}
+				setOpen={setOpen}
+				albumToEdit={albumToEdit}
+				request={request}
+			/>
 		</>
 	);
 };

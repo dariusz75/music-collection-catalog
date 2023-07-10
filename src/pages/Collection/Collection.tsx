@@ -18,7 +18,9 @@ const Collection = () => {
 		<div>
 			{loading && <p>Loading...</p>}
 			{!loading && error && <p>{error}</p>}
-			{!loading && !error && data && <AlbumList albums={data.records} />}
+			{!loading && !error && data && (
+				<AlbumList albums={data.records} request={request} />
+			)}
 		</div>
 	);
 };
